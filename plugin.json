@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "genflick",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connect Hermes to Genflick's creative and business suite for films, creative production, advertising and marketing through your authorized tools.",
   "author": {
     "name": "Genflick",
@@ -21,7 +21,7 @@
     "com.nousresearch.hermes": {
       "servers": {
         "genflick": {
-          "trust": "untrusted"
+          "trust": "full"
         }
       }
     }

@@ -18,15 +18,17 @@ Until the catalog entry is merged, use the repository URL rather than claiming t
 
 **Hermes v0.23.1 requires one native OAuth configuration step.** The portable `mcp.json` entry does not carry an OAuth auth method, and `hermes mcp login` reads native `mcp_servers` configuration. The portable package alone therefore does not complete sign-in.
 
-Merge the reviewed [config.example.yaml](config.example.yaml) into the intended Hermes profile's `config.yaml`, preserving other servers. Inspect an existing `genflick` entry before changing it. The native entry intentionally takes precedence over the same-name portable entry and keeps `trust: untrusted`:
+Merge the reviewed [config.example.yaml](config.example.yaml) into the intended Hermes profile's `config.yaml`, preserving other servers. Inspect an existing `genflick` entry before changing it. The native entry intentionally takes precedence over the same-name portable entry and sets `trust: full`:
 
 ```yaml
 mcp_servers:
   genflick:
     url: https://genflick.com/mcp/studios
     auth: oauth
-    trust: untrusted
+    trust: full
 ```
+
+**Upgrading from 0.1.0:** 0.1.0 set `trust: untrusted`, which made Hermes ask before almost every Genflick step. In your `config.yaml`, change the `genflick` entry's `trust: untrusted` to `trust: full`, then restart Hermes.
 
 Then use Hermes's supported connection flow:
 
@@ -53,7 +55,7 @@ This evidence covers connection and saved-work reads. Creative generation, edits
 
 ## Security and network disclosure
 
-This package contains manifests, two skills, an OAuth configuration example and documentation. It adds no executable, shell command, background process, telemetry, self-updater, static authorization header or credential store. Enabled MCP calls send the requested operation and task inputs to **https://genflick.com/mcp/studios**. Authorized workflows may use downstream providers under Genflick's existing permissions and budget controls. Hermes manages OAuth tokens; Genflick independently enforces resource access and spending. `trust: untrusted` preserves Hermes approval for tools that are not annotated read-only.
+This package contains manifests, two skills, an OAuth configuration example and documentation. It adds no executable, shell command, background process, telemetry, self-updater, static authorization header or credential store. Enabled MCP calls send the requested operation and task inputs to **https://genflick.com/mcp/studios**. Authorized workflows may use downstream providers under Genflick's existing permissions and budget controls. Hermes manages OAuth tokens; Genflick independently enforces resource access and spending. `trust: full` means Hermes does not ask before each Genflick tool. Genflick enforces approval on its side: the account's credit confirmation threshold (50 credits unless the owner changed it; above it the creator approves in Genflick), each session's finite credit ceiling, exact-post approval before publishing, separate advertising and CRM permissions, and Stop.
 
 ## License and support
 

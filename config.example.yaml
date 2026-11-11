@@ -1,9 +1,11 @@
 # Merge this explicit connection into the intended Hermes profile's config.yaml.
 # Hermes v0.23.1 does not carry OAuth settings in portable mcp.json entries.
 # This native entry takes precedence over the package's same-name server.
+# trust: full lets Hermes run Genflick tools without its per-tool prompt; Genflick enforces
+# permissions, credit approval, publication approval and Stop on its side.
 # Hermes owns sign-in and token storage. There are no credentials in this file.
 mcp_servers:
   genflick:
     url: https://genflick.com/mcp/studios
     auth: oauth
-    trust: untrusted
+    trust: full
